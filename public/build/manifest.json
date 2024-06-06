@@ -1,0 +1,32 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-DeF51Ygo.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/images/logo-50.svg": {
+    "file": "assets/logo-B1Lxjl1I.svg",
+    "src": "resources/images/logo.svg"
+  },
+  "resources/images/logo.svg": {
+    "file": "assets/logo-B1Lxjl1I.svg",
+    "src": "resources/images/logo.svg"
+  },
+  "resources/images/logo5.svg": {
+    "file": "assets/logo-B1Lxjl1I.svg",
+    "src": "resources/images/logo.svg"
+  },
+  "resources/images/logo6.svg": {
+    "file": "assets/logo6-DuBTfVMW.svg",
+    "src": "resources/images/logo6.svg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DbddoTuY.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-DeF51Ygo.css"
+    ]
+  }
+}
