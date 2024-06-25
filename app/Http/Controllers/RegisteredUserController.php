@@ -17,8 +17,10 @@ class RegisteredUserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::where('name', '!=', 'Super Admin')->get();
+        return view('users.index', compact('users'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,6 +54,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        session()->flash('message', 'User created successfully!');
+
+
+
         return redirect()->route('users.index');
 
     }
@@ -67,30 +73,52 @@ class RegisteredUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        $departments = Department::all();
+        $designations = Designation::all();
+        $supervisors = User::all();
+
+        return view('users.edit', compact('user', 'departments', 'designations', 'supervisors'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $userAttributes = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:users,email,' . $user->id],
+            'password' => ['nullable', 'confirmed', Password::min(8)],
+            'department_id' => ['required', 'exists:departments,id'],
+            'designation_id' => ['required', 'exists:designations,id'],
+            'supervisor_id' => [], // Supervisor can be nullable
+        ]);
+
+        if ($request->filled('password')) {
+            $userAttributes['password'] = bcrypt($request->password);
+        } else {
+            unset($userAttributes['password']);
+        }
+
+        $user->update($userAttributes);
+
+        return redirect()->route('users.index')->with('message', 'User updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index')->with('message', 'User deleted successfully.');
+
     }
 
-    public function userList()
-{
-    $users = User::with('department', 'designation', 'supervisor')->get();
-    return view('users.list', compact('users'));
-}
+    
+
+
 }

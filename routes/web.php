@@ -4,40 +4,65 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DesignationController;
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// //login routes
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/login', [SessionController::class, 'create']);   //the login page
+// Route::post('/login', [SessionController::class, 'store']);   //login logic to login super admin
+// //Route::delete('/logout', [SessionController::class, 'destroy']);   //for logging out
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/register', [RegisteredUserController::class, 'create']);
-    Route::post('/register', [RegisteredUserController::class, 'store']);
-    Route::get('/register', [RegisteredUserController::class, 'userList'])->name('users.list');
+// //register routes
+
+// Route::get('/register', [RegisteredUserController::class, 'create']);   //
+// Route::post('/register', [RegisteredUserController::class, 'store']);   //
 
 
-    // Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    // Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-    // Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-    // Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
-    Route::resource('users', UserController::class);
+// Route::resource('users', RegisteredUserController::class)->except(['show']);     //resource route
 
-});
 
+
+// // Department routes
+// Route::get('/departments/create', [DepartmentController::class, 'create'])->name('departments.create');
+// Route::post('/departments', [DepartmentController::class, 'store'])->name('departments.store');
+
+// // Designation routes
+// Route::get('/designations/create', [DesignationController::class, 'create'])->name('designations.create');
+// Route::post('/designations', [DesignationController::class, 'store'])->name('designations.store');
+
+
+
+
+// Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
 
 Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
-Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+
+// Protected routes (require authentication and Super Admin status)
+Route::middleware(['auth'])->group(function () {
+    // User routes
+    Route::resource('users', RegisteredUserController::class)->except(['show']);
+
+    // Register routes
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+
+    // Department routes
+    Route::get('/departments/create', [DepartmentController::class, 'create'])->name('departments.create');
+    Route::post('/departments', [DepartmentController::class, 'store'])->name('departments.store');
+
+    // Designation routes
+    Route::get('/designations/create', [DesignationController::class, 'create'])->name('designations.create');
+    Route::post('/designations', [DesignationController::class, 'store'])->name('designations.store');
+});
+
+// Logout route (requires only authentication)
+Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
 
-
-
-// Route::middleware(['auth', 'superadmin'])->group(function () {
-//     Route::resource('users', \App\Http\Controllers\UserController::class);
-
-// });
+Route::get('/app', function () {
+    return view('users.app');
+});

@@ -7,29 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 
-
 class SessionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('auth.login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+ public function store(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -55,7 +41,9 @@ class SessionController extends Controller
        // Check if the user is a super admin
     if ($user->name === 'Super Admin') {
         // Redirect the super admin to the registration page
-        return redirect('/register')->with('message', 'Welcome Super Admin!');
+
+     return redirect()->route('users.index')->with('message', 'Welcome Super Admin!');
+
     } else {
         // Redirect regular users to the login page with incorrect credentials error
         return redirect('/login')->withErrors([
@@ -65,45 +53,14 @@ class SessionController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request)
+    public function destroy()
     {
         Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login')->with('logout', 'You have been logged out successfully.');
+        return redirect('/login')->with('message', 'You have been logged out.');
     }
+
+
 }
-
-
-
-
-

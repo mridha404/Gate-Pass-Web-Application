@@ -1,7 +1,7 @@
-<?php if (isset($component)) { $__componentOriginal3c32f37d83edffb1c6a730d419ef352a = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal3c32f37d83edffb1c6a730d419ef352a = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layout-add-user','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('layout-add-user'); ?>
+<?php if (isset($component)) { $__componentOriginal23a33f287873b564aaf305a1526eada4 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal23a33f287873b564aaf305a1526eada4 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.layout','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('layout'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
@@ -237,12 +237,6 @@
 <?php unset($__componentOriginal48c3958713aa2b1d2dd1900fbfcfc804); ?>
 <?php endif; ?>
 
-        
-
-
-
-
-
      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginala22641835cdc236e966401327a423643)): ?>
@@ -255,15 +249,14 @@
 <?php endif; ?>
 
 
-
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal3c32f37d83edffb1c6a730d419ef352a)): ?>
-<?php $attributes = $__attributesOriginal3c32f37d83edffb1c6a730d419ef352a; ?>
-<?php unset($__attributesOriginal3c32f37d83edffb1c6a730d419ef352a); ?>
+<?php if (isset($__attributesOriginal23a33f287873b564aaf305a1526eada4)): ?>
+<?php $attributes = $__attributesOriginal23a33f287873b564aaf305a1526eada4; ?>
+<?php unset($__attributesOriginal23a33f287873b564aaf305a1526eada4); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal3c32f37d83edffb1c6a730d419ef352a)): ?>
-<?php $component = $__componentOriginal3c32f37d83edffb1c6a730d419ef352a; ?>
-<?php unset($__componentOriginal3c32f37d83edffb1c6a730d419ef352a); ?>
+<?php if (isset($__componentOriginal23a33f287873b564aaf305a1526eada4)): ?>
+<?php $component = $__componentOriginal23a33f287873b564aaf305a1526eada4; ?>
+<?php unset($__componentOriginal23a33f287873b564aaf305a1526eada4); ?>
 <?php endif; ?>
 <?php /**PATH /var/www/html/resources/views/auth/register.blade.php ENDPATH**/ ?>
